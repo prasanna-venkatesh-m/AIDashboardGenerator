@@ -1,0 +1,25 @@
+# Visual Studio
+.vs/
+**/.vs/
+
+# .NET build files
+**/bin/
+**/obj/
+
+# Visual Studio user files
+*.csproj.user
+*.suo
+*.user
+
+# Frontend dependencies
+**/node_modules/
+**/dist/
+
+# Environment files
+**/.env
+**/.env.*
+!**/.env.example
+
+# Sensitive API settings
+**/appsettings.json
+**/appsettings.Development.json

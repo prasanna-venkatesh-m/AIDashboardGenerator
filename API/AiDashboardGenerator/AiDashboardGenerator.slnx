@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AiDashboardGenerator.API/AiDashboardGenerator.API.csproj" />
+  <Project Path="AiDashboardGenerator.DTO/AiDashboardGenerator.DTO.csproj" />
+  <Project Path="AiDashboardGenerator.Models/AiDashboardGenerator.Models.csproj" />
+  <Project Path="AiDashboardGenerator.Services/AiDashboardGenerator.Services.csproj" />
+</Solution>

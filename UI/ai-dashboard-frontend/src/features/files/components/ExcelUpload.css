@@ -1,0 +1,243 @@
+
+.excel-upload {
+  width: 100%;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e8eaf0;
+  border-radius: 16px;
+}
+
+.excel-upload__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.excel-upload__icon,
+.excel-upload__file-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #635bdb;
+  background: #f0efff;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.excel-upload__header h2 {
+  margin: 0 0 5px;
+  color: #202235;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.excel-upload__header p {
+  margin: 0;
+  color: #85899a;
+  font-size: 13px;
+}
+
+.excel-upload__dropzone {
+  min-height: 230px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #d8d9e8;
+  border-radius: 13px;
+  background: #fafaff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.excel-upload__dropzone:hover,
+.excel-upload__dropzone--active {
+  border-color: #635bdb;
+  background: #f5f4ff;
+}
+
+.excel-upload__cloud-icon {
+  color: #635bdb;
+  margin-bottom: 14px;
+}
+
+.excel-upload__dropzone h3 {
+  margin: 0 0 8px;
+  color: #303247;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.excel-upload__dropzone p {
+  margin: 0 0 16px;
+  color: #9295a5;
+  font-size: 13px;
+}
+
+.excel-upload__browse {
+  padding: 9px 20px;
+  color: #ffffff;
+  background: #635bdb;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.excel-upload__formats {
+  margin-top: 18px;
+  color: #999cac;
+  font-size: 11px;
+}
+
+.excel-upload__file {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 15px;
+  border: 1px solid #e8eaf0;
+  border-radius: 11px;
+}
+
+.excel-upload__file-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.excel-upload__file-info strong {
+  overflow-wrap: anywhere;
+  color: #303247;
+  font-size: 13px;
+}
+
+.excel-upload__file-info span {
+  color: #9094a5;
+  font-size: 11px;
+}
+
+.excel-upload__remove {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b8fa0;
+  background: #f4f4f8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.excel-upload__remove:hover {
+  color: #dc4545;
+  background: #fff0f0;
+}
+
+.excel-upload__progress {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+  background: #ededf5;
+  border-radius: 10px;
+}
+
+.excel-upload__progress-bar {
+  height: 100%;
+  background: #635bdb;
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
+.excel-upload__message {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 13px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.excel-upload__message--error {
+  color: #c33e3e;
+  background: #fff1f1;
+}
+
+.excel-upload__message--success {
+  color: #16834b;
+  background: #edfaf3;
+}
+
+.excel-upload__message--success p {
+  margin: 5px 0;
+  color: #426d57;
+}
+
+.excel-upload__message--success small {
+  color: #6b8d79;
+  overflow-wrap: anywhere;
+}
+
+.excel-upload__submit {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: #ffffff;
+  background: #635bdb;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.excel-upload__submit:hover:not(:disabled) {
+  background: #5149c4;
+}
+
+.excel-upload__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.excel-upload__spinner {
+  animation: excel-upload-spin 1s linear infinite;
+}
+
+@keyframes excel-upload-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .excel-upload {
+    padding: 18px;
+  }
+
+  .excel-upload__dropzone {
+    min-height: 210px;
+    padding: 24px 12px;
+  }
+
+  .excel-upload__dropzone h3 {
+    font-size: 14px;
+  }
+
+  .excel-upload__formats {
+    line-height: 1.6;
+  }
+}
