@@ -11,9 +11,11 @@ namespace AiDashboardGenerator.Services
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IBlobService, BlobService>();
             services.AddHttpClient<IGroqService, GroqService>();
+            services.AddHttpClient<ISqlGenerationService, GroqSqlGenerationService>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IExcelMetadataService, ExcelMetadataService>();
             services.AddScoped<IExcelQueryService, ExcelQueryService>();
+            services.AddScoped<IDuckDbQueryService, DuckDbQueryService>();
         }
     }
 }
