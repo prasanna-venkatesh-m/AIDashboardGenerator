@@ -11,8 +11,10 @@ namespace AiDashboardGenerator.Services
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IBlobService, BlobService>();
             services.AddHttpClient<IGroqService, GroqService>();
+
             //services.AddHttpClient<ISqlGenerationService, GroqSqlGenerationService>();
-            services.AddHttpClient<ISqlGenerationService, OpenAiSqlGenerationService>();
+            //services.AddHttpClient<ISqlGenerationService, OpenAiSqlGenerationService>();
+            services.AddHttpClient<ISqlGenerationService, LmStudioSqlGenerationService>();
 
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IExcelMetadataService, ExcelMetadataService>();
