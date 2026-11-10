@@ -1,4 +1,4 @@
-﻿using AiDashboardGenerator.DTO;
+using AiDashboardGenerator.DTO;
 using AiDashboardGenerator.Models;
 using AiDashboardGenerator.Services.Interface;
 using System.Text.Json;
@@ -8,18 +8,18 @@ namespace AiDashboardGenerator.Services.Repository;
 public class QuestionService : IQuestionService
 {
     private readonly IBlobService _blobService;
-    private readonly IGroqService _groqService;
+    private readonly ILmStudioService _lmStudioService;
     private readonly ISqlGenerationService _sqlGenerationService;
     private readonly IDuckDbQueryService _duckDbQueryService;
 
     public QuestionService(
         IBlobService blobService,
-        IGroqService groqService,
+        ILmStudioService lmStudioService,
         ISqlGenerationService sqlGenerationService,
         IDuckDbQueryService duckDbQueryService)
     {
         _blobService = blobService;
-        _groqService = groqService;
+        _lmStudioService = lmStudioService;
         _sqlGenerationService = sqlGenerationService;
         _duckDbQueryService = duckDbQueryService;
     }
@@ -31,7 +31,9 @@ public class QuestionService : IQuestionService
             request.ChatId);
 
         if (metadata == null)
+        {
             throw new Exception("Chat or file metadata not found.");
+        }
 
         var metadataJson = JsonSerializer.Serialize(metadata);
 
@@ -48,10 +50,16 @@ public class QuestionService : IQuestionService
             {request.Query}
             """;
 
-        var queryPlan = await _groqService.GenerateResponseAsync(prompt);
+        // FIRST LOCAL LLM CALL: Generate the structured query plan.
+        var queryPlan = await _lmStudioService.GenerateResponseAsync(prompt);
 
-        if (queryPlan.Intent == "unsupported")
+        if (string.Equals(
+            queryPlan.Intent,
+            "unsupported",
+            StringComparison.OrdinalIgnoreCase))
+        {
             throw new Exception("The requested query is not supported.");
+        }
 
         if (queryPlan.RequiresClarification)
         {
@@ -61,10 +69,13 @@ public class QuestionService : IQuestionService
             };
         }
 
+        // SECOND LOCAL LLM CALL: Generate DuckDB SQL datasets.
+        // The first argument is metadataJson, matching ISqlGenerationService.
         var sqlPlan = await _sqlGenerationService.GenerateSqlAsync(
-            request.Query,
+            metadataJson,
             queryPlan,
-            metadata);
+            metadata,
+            CancellationToken.None);
 
         await using var stream = await _blobService.DownloadFileAsync(
             metadata.BlobName);
@@ -74,7 +85,8 @@ public class QuestionService : IQuestionService
             metadata,
             sqlPlan);
 
-        var dashboard = await _groqService.GenerateDashboardAsync(
+        // THIRD LOCAL LLM CALL: Generate dashboard configuration.
+        var dashboard = await _lmStudioService.GenerateDashboardAsync(
             queryPlan,
             data);
 
